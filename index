@@ -81,13 +81,13 @@
         <div class="rule-container">
             <div class="rule">
                 <a href="Con lore.html"><h3>Con Lore</h3></a>
-                <p>¡Sumérgete en la historia y el trasfondo de Karpender! Experimenta el juego con profundidad y narrativa.</p>
-                <p>Se alienta a los jugadores a crear personajes con historias elaboradas.</p>
+                <h4>¡Sumérgete en la historia y el trasfondo de Karpender! Experimenta el juego con profundidad y narrativa.</h4>
+                <h4>Se alienta a los jugadores a crear personajes con historias elaboradas.</h4>
             </div>
             <div class="rule">
                 <a href="Sin lore.html"><h3>Sin Lore</h3></a>
-                <p>¿Prefieres la acción directa? ¡Juega sin preocuparte por la historia y sumérgete directamente en la mecánica de juego!</p>
-                <p>Perfecto para los que quieren centrarse en la estrategia y la competición.</p>
+                <h4>¿Prefieres la acción directa? ¡Juega sin preocuparte por la historia y sumérgete directamente en la mecánica de juego!</h4>
+                <h4>Perfecto para los que quieren centrarse en la estrategia y la competición.</h4>
             </div>
         </div>
     </section>
