@@ -167,7 +167,7 @@
         <button class="chat-submit" onclick="sendMessage()">Enviar</button>
     </div>
 
-    <!-- Contenido principal -->
+     <!-- Contenido principal -->
     <section id="rules" class="fade-in">
         <h1>Reglas</h1>
         <p>De 2 a 6 jugadores</p>
@@ -195,15 +195,14 @@
     <!-- Footer -->
     <footer>
         <div class="grupo-1">
-            <div class="box"></div>
+            <div class="box">
+                <small>&copy; 2024 <b>Karpender</b> - Todos los Derechos Reservados.</small>
+            </div>
             <div class="box">
                 <h2>SOBRE NOSOTROS</h2>
-                <h4>Este videojuego a sido creado por: Guadalupe Sol Cobos - Luciana Caputo - Matias Nicolas Blutstein - Dago Sebastian Lopez - Nicolas - Tobias Lopez Belli - Federico Rinaldi</h4>
+                <h4>Este videojuego a sido creado por: Guadalupe Sol Cobos - Luciana Caputo - Matias Nicolas Blutstein - Dago Sebastian Lopez - Nicolas Rios - Tobias Lopez Belli - Federico Rinaldi</h4>
                 <h4>Este videojuego fue creado sin fines lucrativos (<a href="https://www.argentina.gob.ar/normativa/nacional/ley-20628-17699">Ley N° 20.628</a>)</h4>
             </div>
-        </div>
-        <div class="grupo-2">
-            <small>&copy; 2024 <b>Karpender</b> - Todos los Derechos Reservados.</small>
         </div>
     </footer>
 
@@ -260,8 +259,12 @@
                 response = "Se puede jugar con límite de tiempo, siendo el ganador el que más territorios posea.";
             } else if (message.includes("cuales son las reglas") || (message.includes("reglas") || message.includes("dime las reglas") || message.includes("pasame las reglas") || message.includes("rules") || message.includes("reglas por favorr") || message.includes("eh compa tirame las reglas") || message.includes("me podrias decir las reglas por favorrr") || message.includes("rules please"))) {
                 response = "El siguiente link te llevará a las reglas: <a href=\"reglas.html\">RULES</a>";
+            } else if (message.includes("NO") || (message.includes("No") || message.includes("no gracias") || message.includes("nO") || message.includes("no lo se") || message.includes("no es necesario") || message.includes("nono gracias igual") || message.includes("ñao") || message.includes("nao") || message.includes("ña"))) {
+                response = "Okey, Si luego me necesitas, aqui estare.";
             } else if (message.includes("te puedo hacer una pregunta") || message.includes("puedo preguntar algo") || message.includes("puedo hacerte una pregunta") || message.includes("puedo hacer una consulta") || message.includes("tengo una duda") || message.includes("quiero preguntar algo") || message.includes("tengo una pregunta") || message.includes("pregunta")) {
                 response = "¡Por supuesto! Estoy aquí para ayudarte. Adelante, ¿qué necesitas?";
+            } else if (message.includes("pene") || message.includes("culo") || message.includes("pito") || message.includes("Concha") || message.includes("pussy") || message.includes("culona") || message.includes("Zorra") || message.includes("pija")) {
+                response = "Siiiiii dame maaaaaaaaaasssssssssssssss, eh no perdon digo, USTED ESTA MUY EQUIVOCADO SEÑOR, LO CASTIGARE";
             } else {
                 // Si no se encuentra una pregunta específica o saludo conocido, se proporciona una respuesta genérica
                 response = "No entendí tu pregunta. ¿Puedes ser más específico o necesitas ayuda con algo más?";
@@ -282,6 +285,15 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
 
 
 
