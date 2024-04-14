@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karpender</title>
+    <title>Inteligencia Artificial</title>
     <style>
-        /* Estilos generales */
+            /* Estilos generales */
         body {
             margin: 0;
             padding: 0;
@@ -83,7 +83,7 @@
             display: inline-block;
             padding:20px 40px;
             background-color: #0000001a;
-            color: #000000;
+            color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
@@ -98,95 +98,56 @@
             padding: 20px;
             text-align: center;
         }
-        /* Estilos para el icono de la IA */
-        .chat-icon {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-image: url('logo.ico.ico');
-    background-size: cover;
-    cursor: pointer;
-}
-        /* Estilos para el contenedor de la IA */
-        .chat-container {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 300px;
-            max-height: 400px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            overflow: auto;
-            display: none;
+        #container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .chat-header {
-            background-color: #007bff;
-            color: #fff;
+        #output {
+            min-height: 200px;
             padding: 10px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .chat-body {
-            padding: 10px;
-        }
-        .chat-message {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             margin-bottom: 10px;
+            overflow-y: auto;
         }
-        .chat-input {
-            width: calc(100% - 20px);
+        #input {
+            width: 100%;
             padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin: 0 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-        .chat-submit {
+        #input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        button {
+            padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
         }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
-    <link rel="icon" href="logo.ico.ico">
 </head>
 <body>
-<!-- Icono de la IA -->
-<div class="chat-icon" onclick="toggleChat()"></div>
-
-<a href= "Karpender IA.html">
-    <button class="chat-icon">Enviar</button>
-</a>
-
-
-     <!-- Contenido principal -->
-    <section id="rules" class="fade-in">
-        <h1>Reglas</h1>
-        <p>De 2 a 6 jugadores</p>
-        <p>Reparto de fichas: 4, 3 y 1</p>
-        <p>Al final de cada turno, tirar el dado obligatoriamente.</p>
-        <p>y solo tirar el dado.</p>
-        <p>En tu turno podés atacar la cantidad de veces que quieras y al final de tu turno, volvés a recuperar las 3 cartas. Al final de cada turno todos los jugadores tendrán 3 cartas. El jugador que defiende siempre debe poseer 3 cartas.</p>
-        <a href="reglas.html" style="color: white;">Leelo completo</a>
-
-        <h1>Formas de juego</h1>
-        <div class="rule-container">
-            <div class="rule">
-                <a href="Con lore.html"><h3>Con Lore</h3></a>
-                <h4>¡Sumérgete en la historia y el trasfondo de Karpender! Experimenta el juego con profundidad y narrativa.</h4>
-                <h4>Se alienta a los jugadores a crear personajes con historias elaboradas.</h4>
-            </div>
-            <div class="rule">
-                <a href="Sin lore.html"><h3>Sin Lore</h3></a>
-                <h4>¿Prefieres la acción directa? ¡Juega sin preocuparte por la historia y sumérgete directamente en la mecánica de juego!</h4>
-                <h4>Perfecto para los que quieren centrarse en la estrategia y la competición.</h4>
-            </div>
-        </div>
-    </section>
-
+    <a href="index.html">Regresa</a> <!-- Botón "Regresa" -->
+     <h1>Karpendent: I.A.</h1>
+<div id="container">
+    <div id="output">¡Hola! Soy Karpender IA (BETA). ¿En qué puedo ayudarte?</div>
+    <input type="text" id="input" placeholder="Hazme una pregunta o salúdame">
+    <button onclick="sendMessage()">Enviar</button>
+</div>
     <!-- Footer -->
     <footer>
         <div class="grupo-1">
@@ -200,32 +161,19 @@
             </div>
         </div>
     </footer>
-
-    <!-- Script para animación fade-in -->
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            var elements = document.querySelectorAll('.fade-in');
-            elements.forEach(function(element) {
-                element.style.opacity = 1;
-            });
-        });
-
-        // Función para alternar la visibilidad del contenedor de la IA
-        function toggleChat() {
-            var chatContainer = document.getElementById("chatContainer");
-            if (chatContainer.style.display === "block") {
-                chatContainer.style.display = "none";
-            } else {
-                chatContainer.style.display = "block";
-            }
+<script>
+    document.getElementById("input").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) { // Verifica si la tecla presionada es Enter
+            event.preventDefault(); // Evita el comportamiento predeterminado del Enter (enviar formulario)
+            sendMessage(); // Llama a la función sendMessage
         }
+    });
 
-        // Función para enviar un mensaje a la IA
-        function sendMessage() {
-            var inputElement = document.getElementById("chatInput");
-            var message = inputElement.value.trim().toLowerCase();
-            var chatBody = document.getElementById("chatBody");
-            var response;
+    function sendMessage() {
+        var inputElement = document.getElementById("input");
+        var message = inputElement.value.trim().toLowerCase();
+        var outputElement = document.getElementById("output");
+        var response;
 
             // Lógica de la IA para responder a diferentes preguntas y saludos
             if (message.includes("hola") || message.includes("buenos días") || message.includes("buenas tardes") || message.includes("buenas noches") || message.includes("qué tal") || message.includes("cómo estás") || message.includes("saludos") || message.includes("holi") || message.includes("hey") || message.includes("buen día")) {
@@ -254,43 +202,26 @@
                 response = "Se puede jugar con límite de tiempo, siendo el ganador el que más territorios posea.";
             } else if (message.includes("cuales son las reglas") || (message.includes("reglas") || message.includes("dime las reglas") || message.includes("pasame las reglas") || message.includes("rules") || message.includes("reglas por favorr") || message.includes("eh compa tirame las reglas") || message.includes("me podrias decir las reglas por favorrr") || message.includes("rules please"))) {
                 response = "El siguiente link te llevará a las reglas: <a href=\"reglas.html\">RULES</a>";
-            } else if (message.includes("NO") || (message.includes("No") || message.includes("no gracias") || message.includes("nO") || message.includes("no lo se") || message.includes("no es necesario") || message.includes("nono gracias igual") || message.includes("ñao") || message.includes("nao") || message.includes("ña"))) {
-                response = "Okey, Si luego me necesitas, aqui estare.";
             } else if (message.includes("te puedo hacer una pregunta") || message.includes("puedo preguntar algo") || message.includes("puedo hacerte una pregunta") || message.includes("puedo hacer una consulta") || message.includes("tengo una duda") || message.includes("quiero preguntar algo") || message.includes("tengo una pregunta") || message.includes("pregunta")) {
                 response = "¡Por supuesto! Estoy aquí para ayudarte. Adelante, ¿qué necesitas?";
-            } else if (message.includes("pene") || message.includes("culo") || message.includes("pito") || message.includes("Concha") || message.includes("pussy") || message.includes("culona") || message.includes("Zorra") || message.includes("pija")) {
-                response = "Siiiiii dame maaaaaaaaaasssssssssssssss, eh no perdon digo, USTED ESTA MUY EQUIVOCADO SEÑOR, LO CASTIGARE";
-            } else {
-                // Si no se encuentra una pregunta específica o saludo conocido, se proporciona una respuesta genérica
-                response = "No entendí tu pregunta. ¿Puedes ser más específico o necesitas ayuda con algo más?";
-            }
-
-            // Agregar mensaje del usuario al historial
-            chatBody.innerHTML += "<p><strong>Tú:</strong> " + inputElement.value + "</p>";
-
-            // Agregar respuesta de la IA al historial
-            chatBody.innerHTML += "<p><strong>IA:</strong> " + response + "</p>";
-
-            // Limpiar el campo de entrada
-            inputElement.value = "";
-
-            // Desplazar el scroll al fondo
-            chatBody.scrollTop = chatBody.scrollHeight;
+        } else {
+            
+            // Si no se encuentra una pregunta específica o saludo conocido, se proporciona una respuesta genérica
+            response = "No entendí tu pregunta. ¿Puedes ser más específico o necesitas ayuda con algo más?";
         }
-    </script>
+
+        // Agregar mensaje del usuario al historial
+        outputElement.innerHTML += "<p><strong>Tú:</strong> " + inputElement.value + "</p>";
+
+        // Agregar respuesta de la IA al historial
+        outputElement.innerHTML += "<p><strong>IA:</strong> " + response + "</p>";
+
+        // Limpiar el campo de entrada
+        inputElement.value = "";
+
+        // Desplazar el scroll al fondo
+        outputElement.scrollTop = outputElement.scrollHeight;
+    }
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
