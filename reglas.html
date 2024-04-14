@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karpender</title>
+    <title>Karpendent -Con lore-</title>
     <style>
         /* Estilos generales */
         body {
@@ -61,6 +61,19 @@
             letter-spacing: 2px;
             font-weight: bold;
         }
+        h3 {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 25px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.821);
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
         .rule h2 {
             color: #333;
         }
@@ -77,12 +90,11 @@
                 opacity: 1;
             }
         }
-        /* Estilos para enlaces */
         a {
             display: inline-block;
             padding:20px 40px;
-            background-color: #0000001a;
-            color: #000000;
+            background-color: #000000a7;
+            color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
@@ -100,29 +112,38 @@
     </style>
 </head>
 <body>
-    <section id="rules" class="fade-in">
+    <div class="content">
+        <a href="index.html">Regresa</a> <!-- Botón "Regresa" -->
         <h1>Reglas</h1>
+        <h3>Principles</h3>
         <p>De 2 a 6 jugadores</p>
-        <p>Reparto de fichas: 4, 3 y 1
+        <p>Reparto de fichas: 4, 3 y 1</p>
         <p>Al final de cada turno, tirar el dado obligatoriamente.</p>
         <p>y solo tirar el dado.</p>
         <p>En tu turno podés atacar la cantidad de veces que quieras y al final de tu turno, volvés a recuperar las 3 cartas. Al final de cada turno todos los jugadores tendrán 3 cartas. El jugador que defiende siempre debe poseer 3 cartas.</p>
-        <a href="reglas.html">Leelo completo</a>
-        <h1>Formas de juego</h1>
-        <div class="rule-container">
-            <div class="rule">
-                <a href="Con lore.html"><h3>Con Lore</h3></a>
-                <h4>¡Sumérgete en la historia y el trasfondo de Karpender! Experimenta el juego con profundidad y narrativa.</h4>
-                <h4>Se alienta a los jugadores a crear personajes con historias elaboradas.</h4>
-            </div>
-            <div class="rule">
-                <a href="Sin lore.html"><h3>Sin Lore</h3></a>
-                <h4>¿Prefieres la acción directa? ¡Juega sin preocuparte por la historia y sumérgete directamente en la mecánica de juego!</h4>
-                <h4>Perfecto para los que quieren centrarse en la estrategia y la competición.</h4>
-            </div>
-        </div>
-    </section>
-
+        <p>Se puede jugar a conquistar con límite de tiempo siendo el ganador el que más territorios posea.</p>
+        <h3>De ataque</h3>
+        <p>Cada jugador tira una carta de su mazo al mismo tiempo que el otro jugador  y según la tabla de valores (más poderosa: magia, arco y espada) una es la vencedora. En el caso de perder el atacante pierde su carta de ataque pero no su territorio.</p>
+        <p>En su turno, cada jugador puede atacar todas las veces que quiera en base a la cantidad de cartas de ataque que posea.</p>
+        <p>En caso de empate, las cartas son descartadas y el ataque queda nulo.</p>
+        <p>En caso de que el jugador se quede sin cartas para defenderse, podrá retirar del maso las cartas.</p>
+        <p>Al final de cada turno, todos los jugadores deben tener 3 cartas.</p>
+        <p>La ronda de subasta empieza con el primer jugador al poner fichas. </p>
+        <p>Al finalizar la ronda, la primera posición pasa al jugador de la izquierda.</p>
+        <p>Al final de cada turno, cada jugador deberá pagar por carta $ 1000</p>
+        <p>El jugador, al completar un continente, va a tener una carta más de ataque sin costo. Esto se mantiene mientras el jugador siga teniendo el reino completo.</p>
+        <p>Si el jugador tiene dicho reino y pierde su reino antes de su turno de ataque, deberá devolver la carta premio en el momento de perder su reino. Cuando llegue su turno, el jugador recuperá su reino automáticamente y tomará su carta premio.</p>
+        <h3>Final de rondas</h3>
+        <p>Cada jugador, por orden de turno, inicia la subasta. </p>
+        <p>Las subastas son irrevocables, el jugador que realice la mejor apuesta es el ganador. En caso, de no tener los fondos necesarios deberá acudir al banco.</p>
+        <p>Finalizada la ronda de turnos se comenzará por orden la compra de tarjetas de ataques (se inicia primero la subasta y después la compra de tarjetas).</p>
+        <h3>Banco</h3>
+        <p>Cada Estado tiene un valor de 10.000 Dalks.</p>
+        <p>Cualquier jugador puede vender sus tierras al banco a cambio de Dalks</p>
+        <p>Cada tierra vale 10.000 Dalks. La venta de tierra no tiene ningún límite.</p>
+        <p>En la subasta de tierras del banco, ésta deberá comenzar con 12.000 Dalks.</p>
+        <p>En tu turno podés atacar la cantidad de veces que quieras y al final de tu turno, volvés a recuperar las 3 cartas. Al final de cada turno todos los jugadores tendrán 3 cartas. El jugador que defiende siempre debe poseer 3 cartas.</p>
+    </div>
     <!-- Footer -->
     <footer>
         <div class="grupo-1">
@@ -137,21 +158,5 @@
             <small>&copy; 2024 <b>Karpender</b> - Todos los Derechos Reservados.</small>
         </div>
     </footer>
-
-    <!-- Script para animación fade-in -->
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            var elements = document.querySelectorAll('.fade-in');
-            elements.forEach(function(element) {
-                element.style.opacity = 1;
-            });
-        });
-    </script>
 </body>
 </html>
-
-
-
-
-
-
