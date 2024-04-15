@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karpender</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            background-image: url('Karpendente.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; /* Evitar repetición de la imagen */
+            position: relative; /* Para posicionar el ícono de la IA */
+        }
+        p {
+            background-color: rgba(0, 0, 0, 0.521); /* Color de fondo */
+            color: #fff; /* Color del texto */
+            padding: 10px; /* Agrega espacio alrededor del texto */
+            border-radius: 30px; /* Redondea los bordes del párrafo */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Agrega una sombra suave */
+            margin-bottom: 40px; /* Agrega espacio entre párrafos */
+            font-size: 24px; /* Tamaño del texto */
+            line-height: 1.8; /* Espaciado entre líneas */
+            text-align: center; /* Centra el texto */
+        }
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .rule-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 50px;
+        }
+        .rule {
+            width: 45%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .rule:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.821);
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .rule h2 {
+            color: #333;
+        }
+        /* Estilos para animaciones */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Estilos para enlaces */
+        a {
+            display: inline-block;
+            padding:20px 40px;
+            background-color: #0000001a;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #3e00ce;
+        }
+        /* Estilos para footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Estilos para el ícono de la IA */
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-image: url('logo.ico.ico');
+            background-size: cover;
+            cursor: pointer;
+        }
+        /* Estilos para el contenedor de la IA */
+        .chat-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            /*max-height: 400px;*/
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            overflow: auto;
+            display: none;
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .chat-body {
+            padding: 10px;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .chat-input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .chat-submit {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="icon" href="logo.ico.ico">
+</head>
+<body>
+    <!-- Icono de la IA -->
+    <div class="chat-icon" onclick="toggleChat()"></div>
+
+    <!-- Contenedor de la IA -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">Karpender IA (BETA)</div>
+        <div class="chat-body" id="chatBody">
+            ¡Hola! Soy Karpender IA (BETA). ¿En qué puedo asistirte?
+        </div>
+        <input type="text" class="chat-input" id="chatInput" placeholder="Hazme una consulta o salúdame">
+        <button class="chat-submit" onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <!-- Contenido principal -->
+    <section id="rules" class="fade-in">
+        <h1>Reglas</h1>
+        <p>De 2 a 6 jugadores</p>
+        <p>Se recomienda mayores de 13 años</p>
+        <p>KARPENDEN es un juego de estrategia cuyo fin es conquistar todos los reinos, siendo el Ganador el Rey Supremo.</p>
+        <p>El juego consta de un mapa dividido en 6 reinos, a su vez cada reino esta subdividido en 4 tierras. La caja contiene: fichas con diversos colores para cada jugador, cartas de ataque, cartas de destino, dinero, chequeras y un dado.</p>
+        <a href="reglas.html" style="color: white;">Ver más</a>
+
+        <h1>Formas de juego</h1>
+        <div class="rule-container">
+            <div class="rule">
+                <a href="Con lore.html"><h3>Con Lore</h3></a>
+                <h4>¡Sumérgete en la historia y el trasfondo de Karpender! Experimenta el juego con profundidad y narrativa.</h4>
+            </div>
+            <div class="rule">
+                <h3>Sin Lore</h3>
+                <h4>¿Prefieres la acción directa? ¡Juega sin preocuparte por la historia y sumérgete directamente en la mecánica de juego!</h4>
+                <h4>Perfecto para los que quieren centrarse en la estrategia y la competencia.</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="grupo-1">
+            <div class="box"></div>
+            <div class="box">
+                <h2>SOBRE NOSOTROS</h2>
+                <h4>Este videojuego ha sido creado por: Guadalupe Sol Cobos - Luciana Caputo - Matias Nicolas Blutstein - Dago Sebastian Lopez - Nicolas - Tobias Lopez Belli - Federico Rinaldi</h4>
+                <h4>Este videojuego fue desarrollado sin fines de lucro (<a href="https://www.argentina.gob.ar/normativa/nacional/ley-20628-17699">Ley N° 20.628</a>)</h4>
+            </div>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2024 <b>Karpender</b> - Todos los Derechos Reservados.</small>
+        </div>
+    </footer>
+
+    <!-- Script para animación fade-in -->
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var elements = document.querySelectorAll('.fade-in');
+            elements.forEach(function(element) {
+                element.style.opacity = 1;
+            });
+        });
+
+        // Función para alternar la visibilidad del contenedor de la IA
+        function toggleChat() {
+            var chatContainer = document.getElementById("chatContainer");
+            if (chatContainer.style.display === "block") {
+                chatContainer.style.display = "none";
+            } else {
+                chatContainer.style.display = "block";
+            }
+        }
+
+        // Función para enviar un mensaje a la IA
+        function sendMessage() {
+            var inputElement = document.getElementById("chatInput");
+            var message = inputElement.value.trim().toLowerCase();
+            var chatBody = document.getElementById("chatBody");
+            var response;
+                        
+              // Lógica de la IA para responder a diferentes preguntas y saludos
+            if (message.includes("hola") || message.includes("buenos días") || message.includes("buenas tardes") || message.includes("buenas noches") || message.includes("qué tal") || message.includes("cómo estás") || message.includes("saludos") || message.includes("holi") || message.includes("hey") || message.includes("buen día")) {
+                response = "¡Hola! ¿En qué puedo ayudarte?";
+            } else if (message.includes("todo bien?") || message.includes("como estas?") || message.includes("como te encuentras?") || message.includes("como va?")) {
+                response = "¿Todo bien, y vos?";
+            } else if (message.includes("") || message.includes("Todo perfecto") || message.includes("Todo correcto") || message.includes("todo tranki") || message.includes("bien chill")) {
+                response = "Bien por ti, necesitas ayuda con algo?";
+            } else if (message.includes("no") || message.includes("No") || message.includes("nO") || message.includes("ñao") || message.includes("ne") || message.includes("meh") || message.includes("maso") || message.includes("nao") || message.includes("nono")) {
+                response = "Okey, no dudes en regresar cuando necesites algo.";
+            } else if (message.includes("adiós") || message.includes("hasta luego") || message.includes("nos vemos") || message.includes("chau") || message.includes("bye") || message.includes("hasta pronto") || message.includes("hasta la vista") || message.includes("hasta mañana") || message.includes("hasta luego")) {
+                response = "¡Hasta luego! Que tengas un buen día.";  
+            } else if (message.includes("jugadores") || message.includes("participantes")) {
+                response = "El juego puede tener de 2 a 6 jugadores.";
+            } else if (message.includes("edad recomendada") || message.includes("recomendada para mayores")) {
+                response = "Se recomienda para mayores de 13 años.";
+            } else if (message.includes("objetivo") || message.includes("fin del juego")) {
+                response = "El objetivo es conquistar todos los reinos y convertirse en el Rey Supremo.";
+            } else if (message.includes("componentes") || message.includes("qué incluye")) {
+                response = "El juego incluye fichas de diversos colores para cada jugador, cartas de ataque, cartas de destino, dinero, chequeras y un dado.";
+            } else if (message.includes("preparación del juego") || message.includes("cómo se prepara")) {
+                response = "Para preparar el juego, se designa un banquero, se asigna un color y 50.000 Dalks a cada jugador, y se colocan ejércitos en el mapa en turnos siguiendo las agujas del reloj. Luego se reparten las cartas de ataque y destino.";
+            } else if (message.includes("inicio del juego") || message.includes("cómo empieza")) {
+                response = "El primer jugador en colocar los ejércitos comienza la partida. En su turno, puede atacar o pasar, con el objetivo de conquistar territorios y reinos.";
+            } else if (message.includes("banco") || message.includes("transacciones monetarias")) {
+                response = "El banco es el único ente autorizado para transacciones monetarias, venta de tierras y compra de cartas de ataque. No se permiten transacciones entre jugadores.";
+            } else if (message.includes("conquista de reino") || message.includes("cómo se conquista un reino")) {
+                response = "Por cada reino conquistado, se obtiene una carta de ataque de premio. El Ganador es quien conquista los 6 reinos.";
+            } else if (message.includes("subastas") || message.includes("tierras libres")) {
+                response = "Al finalizar cada ronda, el banquero subastará tierras libres entre los jugadores.";
+            } else if (message.includes("cartas de ataque") || message.includes("cómo funcionan las cartas")) {
+                response = "Las cartas de ataque se utilizan en los enfrentamientos entre jugadores, siguiendo las reglas establecidas en el juego.";
+            } else if (message.includes("cartas de destino") || message.includes("función de las cartas de destino")) {
+                response = "Las cartas de destino tienen efectos variados en el juego y se revelan al final del turno de un jugador.";
+            } else if (message.includes("tierras") || message.includes("mapa") || message.includes("reinos")) {
+                response = "El mapa está dividido en 6 reinos, cada uno subdividido en 4 tierras.";
+            } else if (message.includes("ejércitos") || message.includes("fichas")) {
+                response = "Los jugadores colocan ejércitos en el mapa para conquistar territorios y reinos.";
+            } else if (message.includes("espada") || message.includes("magia") || message.includes("arco")) {
+                response = "Las cartas de ataque incluyen Espada, Magia y Arco, cada una con sus efectos específicos durante los enfrentamientos.";
+            } else if (message.includes("ronda") || message.includes("turno")) {
+                response = "Una ronda consiste en que cada jugador realiza sus acciones y se resuelven los enfrentamientos, seguido de la fase de subastas si corresponde.";
+            } else if (message.includes("ganador")) {
+                response = "El Ganador es quien conquista todos los reinos o quien posee más tierras al final del juego, dependiendo de la modalidad de victoria elegida.";
+            } else if (message.includes("ganador")) {
+                response = "Si quieres leer las reglas <a href=\"reglas.html\">Haz click aqui</a>";
+            } else {
+                response = "Lo siento, no entendí la pregunta. Por favor, sé más específico.";
+            }
+
+            // Agregar mensaje del usuario al historial
+            chatBody.innerHTML += "<p><strong>Tú:</strong> " + inputElement.value + "</p>";
+
+            // Agregar respuesta de la IA al historial
+            chatBody.innerHTML += "<p><strong>IA:</strong> " + response + "</p>";
+
+            // Limpiar el campo de entrada
+            inputElement.value = "";
+
+            // Desplazar el scroll al fondo
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
