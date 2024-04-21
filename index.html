@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karpenden</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            background-image: url('Karpendente.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; /* Evitar repetición de la imagen */
+            position: relative; /* Para posicionar el ícono de la IA */
+        }
+        p {
+            background-color: rgba(0, 0, 0, 0.521); /* Color de fondo */
+            color: #fff; /* Color del texto */
+            padding: 10px; /* Agrega espacio alrededor del texto */
+            border-radius: 30px; /* Redondea los bordes del párrafo */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Agrega una sombra suave */
+            margin-bottom: 40px; /* Agrega espacio entre párrafos */
+            font-size: 24px; /* Tamaño del texto */
+            line-height: 1.8; /* Espaciado entre líneas */
+            text-align: center; /* Centra el texto */
+        }
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .rule-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 50px;
+        }
+        .rule {
+            width: 45%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .rule:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.821);
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .rule h2 {
+            color: #333;
+        }
+        /* Estilos para animaciones */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Estilos para enlaces */
+        a {
+            display: inline-block;
+            padding:20px 40px;
+            background-color: #0000001a;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #3e00ce;
+        }
+        /* Estilos para footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Estilos para el ícono de la IA */
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-image: url('logo.ico.ico');
+            background-size: cover;
+            cursor: pointer;
+            z-index: 9999; /* Para asegurar que esté por encima de otros elementos */
+        }
+        /* Estilos para el contenedor de la IA */
+        .chat-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            /*max-height: 400px;*/
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            overflow: auto;
+            display: none;
+            z-index: 9999; /* Para asegurar que esté por encima de otros elementos */
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+         /* Estilos para el contenedor del cuerpo del chat */
+        .chat-body {
+        padding: 10px;
+        overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
+        max-height: 300px; /* Establece una altura máxima para el contenedor */
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .chat-input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .chat-submit {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="icon" href="logo.ico.ico">
+</head>
+<body>
+    <!-- Icono de la IA -->
+    <div class="chat-icon" onclick="toggleChat()"></div>
+
+    <!-- Contenedor de la IA -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">Karpender IA (BETA)</div>
+        <div class="chat-body" id="chatBody">
+            <p>Bienvenido a Karpender IA (BETA). ¿En qué puedo ayudarte?</p>
+            <p>Por favor, elige una de las siguientes opciones:</p>
+            <ul>
+                <li><a href="#" onclick="optionSelected(1)">Reglas</a></li>
+                <li><a href="#" onclick="optionSelected(2)">Integrantes</a></li>
+                <li><a href="#" onclick="optionSelected(3)">Lore</a></li>
+            </ul>
+        </div>
+        <input type="text" class="chat-input" id="chatInput" placeholder="Hazme una consulta o salúdame">
+        <button class="chat-submit" onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <!-- Contenido principal -->
+    <section id="rules" class="fade-in">
+        <h1>Reglas</h1>
+        <p>De 2 a 6 jugadores</p>
+        <p>Se recomienda mayores de 13 años</p>
+        <p>KARPENDEN es un juego de estrategia cuyo fin es conquistar todos los reinos, siendo el Ganador el Rey Supremo.</p>
+        <p>El juego consta de un mapa dividido en 6 reinos, a su vez cada reino esta subdividido en 4 tierras. La caja contiene: fichas con diversos colores para cada jugador, cartas de ataque, cartas de destino, dinero, chequeras y un dado.</p>
+        <a href="reglas.html" style="color: white;">Ver más</a>
+
+        <h1>Formas de juego</h1>
+        <div class="rule-container">
+            <div class="rule">
+                <a href="Con lore.html"><h3>Con Lore</h3></a>
+                <h4>¡Sumérgete en la historia y el trasfondo de Karpender! Experimenta el juego con profundidad y narrativa.</h4>
+            </div>
+            <div class="rule">
+                <a href="Sin lore.html"><h3>Sin Lore</h3></a>
+                <h4>¿Prefieres la acción directa? ¡Juega sin preocuparte por la historia y sumérgete directamente en la mecánica de juego!</h4>
+                <h4>Perfecto para los que quieren centrarse en la estrategia y la competencia.</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="grupo-1">
+            <div class="box"></div>
+            <div class="box">
+                <h2>SOBRE NOSOTROS</h2>
+                <h4>Este videojuego ha sido creado por: Guadalupe Sol Cobos - Luciana Caputo - Matias Nicolas Blutstein - Dago Sebastian Lopez - Nicolas - Tobias Lopez Belli - Federico Rinaldi</h4>
+                <h4>Este videojuego fue desarrollado sin fines de lucro (<a href="https://www.argentina.gob.ar/normativa/nacional/ley-20628-17699">Ley N° 20.628</a>)</h4>
+            </div>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2024 <b>Karpender</b> - Todos los Derechos Reservados.</small>
+        </div>
+    </footer>
+
+    <!-- Script para animación fade-in -->
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var elements = document.querySelectorAll('.fade-in');
+            elements.forEach(function(element) {
+                element.style.opacity = 1;
+            });
+        });
+
+        // Respuestas para cada opción
+        var responses = [
+    "Las reglas son como un acuerdo entre todos nosotros sobre cómo queremos jugar para que todos podamos divertirnos juntos. Si las quieres leer completas <a href='reglas.html'><h3>Entra aquí</h3></a>",
+    "Guadalupe Sol Cobos - Luciana Caputo - Matias Nicolas Blutstein - Dago Sebastian Lopez - Nicolas - Tobias Lopez Belli - Federico Rinaldi.(Estos tambien estan escritos en el footer).",
+    "Es la historia de fondo de un juego, llena de detalles sobre el mundo y los personajes. Si lo quieres leer completo <a href='Con lore.html'><h3>Entra aquí</h3></a>"
+];
+
+
+        // Función para alternar la visibilidad del contenedor de la IA
+        function toggleChat() {
+            var chatContainer = document.getElementById("chatContainer");
+            if (chatContainer.style.display === "block") {
+                chatContainer.style.display = "none";
+            } else {
+                chatContainer.style.display = "block";
+            }
+        }
+
+        // Función para manejar la selección de opciones
+        function optionSelected(option) {
+            var chatBody = document.getElementById("chatBody");
+            var response = responses[option - 1];
+
+            // Agregar respuesta de la IA al historial
+            chatBody.innerHTML += "<p><strong>IA:</strong> " + response + "</p>";
+
+            // Desplazar el scroll al fondo
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Función para enviar un mensaje a la IA
+        function sendMessage() {
+            var inputElement = document.getElementById("chatInput");
+            var message = inputElement.value.trim().toLowerCase();
+            var chatBody = document.getElementById("chatBody");
+            var response;
+                        
+              // Lógica de la IA para responder a diferentes preguntas y saludos
+            if (message.includes("hola") || message.includes("buenos días") || message.includes("buenas tardes") || message.includes("buenas noches") || message.includes("qué tal") || message.includes("cómo estás") || message.includes("saludos") || message.includes("holi") || message.includes("hey") || message.includes("buen día")) {
+                response = "¡Hola! ¿En qué puedo ayudarte?";
+            } else if (message.includes("reglas")) {
+                response = "Si quieres leer las reglas <a href='reglas.html'>Haz click aquí</a>";
+                
+            } else {
+                response = "Lo siento, no entendí la pregunta. Por favor, sé más específico.";
+            }
+
+            // Agregar mensaje del usuario al historial
+            chatBody.innerHTML += "<p><strong>Tú:</strong> " + inputElement.value + "</p>";
+
+            // Agregar respuesta de la IA al historial
+            chatBody.innerHTML += "<p><strong>IA:</strong> " + response + "</p>";
+
+            // Limpiar el campo de entrada
+            inputElement.value = "";
+
+            // Desplazar el scroll al fondo
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
