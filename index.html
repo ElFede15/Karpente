@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Contable - Centro de Estudiantes</title>
+    <style>
+        /* Estilo general del cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://www.transparenttextures.com/patterns/pw-maze.png'); /* Fondo suave con patrón */
+            background-size: cover;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        /* Estilo del encabezado */
+        header {
+            background-color: rgba(255, 20, 147, 0.8); /* Rosa oscuro translúcido */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.5); /* Sombra suave */
+            border-bottom: 2px solid #ff69b4; /* Borde rosa */
+        }
+
+        header h1 {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Estilo del menú */
+        #menu {
+            background-color: rgba(255, 105, 180, 0.9); /* Rosa con transparencias */
+            color: white;
+            text-align: center;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 10px rgba(255, 105, 180, 0.5);
+        }
+
+        #menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        #menu a:hover {
+            color: #ff1493;
+        }
+
+        /* Formulario de entrada y gastos */
+        form {
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.6); /* Sombras rosadas */
+        }
+
+        form h2 {
+            text-align: center;
+            color: #ff69b4;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        form input[type="number"], form input[type="text"], form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ff1493;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: rgba(255, 240, 245, 0.8); /* Fondo suave rosa pálido */
+        }
+
+        form button {
+            background-color: #ff1493;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #ff69b4;
+        }
+
+        /* Estilo de los elementos del historial */
+        #historial {
+            margin-top: 40px;
+        }
+
+        #historial h3 {
+            text-align: center;
+            font-size: 28px;
+            color: #ff1493;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
+        }
+
+        #historial ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #historial li {
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 182, 193, 0.7); /* Fondo rosa suave */
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.5); /* Sombras rosadas */
+            transition: transform 0.3s ease;
+        }
+
+        #historial li:hover {
+            transform: scale(1.05); /* Efecto de hover para resaltar */
+        }
+
+        /* Estilo de los botones y el balance */
+        #balance {
+            text-align: center;
+            margin-top: 40px;
+            font-weight: bold;
+            font-size: 26px;
+            color: #ff69b4;
+        }
+
+        #exportar-excel, #borrar-todo {
+            background-color: #ff1493;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        #exportar-excel:hover, #borrar-todo:hover {
+            background-color: #ff69b4;
+        }
+
+        /* Estilo del overlay (login) */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #login-form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+            width: 320px;
+            text-align: center;
+        }
+
+        #login-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ff1493;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #ff1493; /* Cambio de color de texto */
+        }
+
+        #login-form button {
+            background-color: #ff1493;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #login-form button:hover {
+            background-color: #ff69b4;
+        }
+
+        /* Mensaje de error de login */
+        #mensaje-error {
+            color: red;
+            font-size: 16px;
+            display: none;
+        }
+
+        /* Transiciones suaves para los efectos */
+        body, #overlay, #menu, form, #historial {
+            transition: all 0.5s ease;
+        }
+
+        /* Efecto de transiciones para hover en el menu */
+        #menu a:hover {
+            text-decoration: underline;
+            color: #ff69b4;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sistema Contable - Centro de Estudiantes</h1>
+    </header>
+
+    <div id="menu">
+        <a href="#">Inicio</a>
+        <a href="#historial">Historial</a>
+    </div>
+
+    <main>
+        <h2>Formulario de Ingresos</h2>
+        <form id="form-ingresos">
+            <label for="ingreso-descripcion">Tipo de ingreso:</label>
+            <select id="ingreso-descripcion">
+                <option value="" disabled selected style="color: #ff1493;">SELECCIONAR</option>
+                <option value="Torneo de Truco">Torneo de Truco</option>
+                <option value="Torneo de Ajedrez">Torneo de Ajedrez</option>
+                <option value="Torneo de E-sports">Torneo de E-sports</option>
+                <option value="Bingo">Bingo</option>
+            </select>
+            <label for="ingreso-cantidad">Cantidad de entradas:</label>
+            <input type="number" id="ingreso-cantidad" placeholder="Cantidad">
+            <label for="ingreso-precio">Precio por entrada:</label>
+            <input type="number" id="ingreso-precio" placeholder="Precio">
+            <button type="button" id="guardar-ingreso">Guardar Ingreso</button>
+            <p id="error-ingreso" style="color: red; display: none;">Por favor, complete todos los campos correctamente.</p>
+        </form>
+    
+        <h2>Formulario de Gastos</h2>
+        <form id="form-gastos">
+            <label for="gasto-descripcion">Tipo de gasto:</label>
+            <select id="gasto-descripcion">
+                <option value="" disabled selected style="color: #ff1493;">SELECCIONAR</option>
+                <option value="Pintura">Pintura</option>
+                <option value="Espejos de Plástico Reflectante">Espejos de Plástico Reflectante</option>
+                <option value="Picaportes">Picaportes</option>
+                <option value="Desodorantes de Ambiente">Desodorantes de Ambiente</option>
+                <option value="Plantas">Plantas</option>
+            </select>
+            <label for="gasto-cantidad">Cantidad de unidades:</label>
+            <input type="number" id="gasto-cantidad" placeholder="Cantidad">
+            <label for="gasto-precio">Precio por unidad:</label>
+            <input type="number" id="gasto-precio" placeholder="Precio">
+            <button type="button" id="guardar-gasto">Guardar Gasto</button>
+            <p id="error-gasto" style="color: red; display: none;">Por favor, complete todos los campos correctamente.</p>
+        </form>
+    
+        <div id="historial">
+            <h3>Historial de Cálculos</h3>
+            <ul id="historial-lista"></ul>
+        </div>
+    
+        <div id="balance">
+            Balance Total: <span id="balance-total">0</span>
+        </div>
+        <button type="button" id="exportar-excel">Exportar a Excel</button>
+        <button type="button" id="borrar-todo">Borrar Todo</button>
+    </main>
+    
+    
+
+    <!-- Librería para Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+    <script>
+        // Variables globales
+        let historial = JSON.parse(localStorage.getItem('historial')) || [];
+        let balanceTotal = parseFloat(localStorage.getItem('balanceTotal')) || 0;
+    
+        // Función para exportar historial a Excel
+        const exportarAExcel = () => {
+            const wb = XLSX.utils.book_new();
+            const wsHistorial = [];
+            wsHistorial.push(["Tipo", "Descripción", "Cantidad", "Precio", "Total", "Fecha"]);
+            historial.forEach(item => {
+                wsHistorial.push([item.tipo === 'ingreso' ? 'Ingreso' : 'Gasto', item.descripcion, item.cantidad, item.precio, item.total, item.fecha]);
+            });
+    
+            const ws = XLSX.utils.aoa_to_sheet(wsHistorial);
+            XLSX.utils.book_append_sheet(wb, ws, "Historial");
+            XLSX.writeFile(wb, "historial_contable.xlsx");
+        };
+    
+        // Función para guardar el ingreso
+        document.getElementById('guardar-ingreso').addEventListener('click', () => {
+            const descripcion = document.getElementById('ingreso-descripcion').value;
+            const cantidad = parseFloat(document.getElementById('ingreso-cantidad').value);
+            const precio = parseFloat(document.getElementById('ingreso-precio').value);
+            const total = cantidad * precio;
+            const fecha = new Date().toLocaleString();
+    
+            if (descripcion === "" || isNaN(cantidad) || isNaN(precio) || cantidad <= 0 || precio <= 0) {
+                document.getElementById('error-ingreso').style.display = 'block';
+                return;
+            }
+    
+            // Crear objeto de ingreso
+            const ingreso = { tipo: 'ingreso', descripcion, cantidad, precio, total, fecha };
+    
+            // Agregar al historial
+            historial.push(ingreso);
+            localStorage.setItem('historial', JSON.stringify(historial));
+    
+            // Actualizar balance
+            balanceTotal += total;
+            localStorage.setItem('balanceTotal', balanceTotal);
+    
+            // Actualizar visualmente el historial y el balance
+            actualizarHistorial();
+            actualizarBalance();
+    
+            // Limpiar los campos
+            document.getElementById('ingreso-descripcion').value = "";
+            document.getElementById('ingreso-cantidad').value = "";
+            document.getElementById('ingreso-precio').value = "";
+            document.getElementById('error-ingreso').style.display = 'none';
+        });
+    
+        // Función para guardar el gasto
+        document.getElementById('guardar-gasto').addEventListener('click', () => {
+            const descripcion = document.getElementById('gasto-descripcion').value;
+            const cantidad = parseFloat(document.getElementById('gasto-cantidad').value);
+            const precio = parseFloat(document.getElementById('gasto-precio').value);
+            const total = cantidad * precio;
+            const fecha = new Date().toLocaleString();
+    
+            if (descripcion === "" || isNaN(cantidad) || isNaN(precio) || cantidad <= 0 || precio <= 0) {
+                document.getElementById('error-gasto').style.display = 'block';
+                return;
+            }
+    
+            // Crear objeto de gasto
+            const gasto = { tipo: 'gasto', descripcion, cantidad, precio, total, fecha };
+    
+            // Agregar al historial
+            historial.push(gasto);
+            localStorage.setItem('historial', JSON.stringify(historial));
+    
+            // Actualizar balance
+            balanceTotal -= total;
+            localStorage.setItem('balanceTotal', balanceTotal);
+    
+            // Actualizar visualmente el historial y el balance
+            actualizarHistorial();
+            actualizarBalance();
+    
+            // Limpiar los campos
+            document.getElementById('gasto-descripcion').value = "";
+            document.getElementById('gasto-cantidad').value = "";
+            document.getElementById('gasto-precio').value = "";
+            document.getElementById('error-gasto').style.display = 'none';
+        });
+    
+        // Función para actualizar el historial visualmente
+        const actualizarHistorial = () => {
+            const historialLista = document.getElementById('historial-lista');
+            historialLista.innerHTML = ''; // Limpiar lista antes de agregar los elementos
+            historial.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.tipo === 'ingreso' ? 'Ingreso' : 'Gasto'}: ${item.descripcion} - Cantidad: ${item.cantidad} - Precio: $${item.precio} - Total: $${item.total} - Fecha: ${item.fecha}`;
+    
+                // Botón para borrar el item individual
+                const btnBorrar = document.createElement('button');
+                btnBorrar.textContent = 'Eliminar';
+                btnBorrar.style.marginLeft = '10px';
+                btnBorrar.addEventListener('click', () => borrarElemento(index));
+    
+                li.appendChild(btnBorrar);
+                historialLista.appendChild(li);
+            });
+        };
+    
+        // Función para borrar un elemento del historial
+        const borrarElemento = (index) => {
+            const item = historial[index];
+            // Actualizar el balance dependiendo de si es ingreso o gasto
+            if (item.tipo === 'ingreso') {
+                balanceTotal -= item.total;
+            } else {
+                balanceTotal += item.total;
+            }
+    
+            // Eliminar el item del historial
+            historial.splice(index, 1);
+    
+            // Actualizar localStorage
+            localStorage.setItem('historial', JSON.stringify(historial));
+            localStorage.setItem('balanceTotal', balanceTotal);
+    
+            // Actualizar visualmente el historial y el balance
+            actualizarHistorial();
+            actualizarBalance();
+        };
+    
+        // Función para actualizar el balance visualmente
+        const actualizarBalance = () => {
+            document.getElementById('balance-total').textContent = balanceTotal;
+        };
+    
+        // Función para borrar todo el historial
+        document.getElementById('borrar-todo').addEventListener('click', () => {
+            historial = [];
+            balanceTotal = 0;
+            localStorage.setItem('historial', JSON.stringify(historial));
+            localStorage.setItem('balanceTotal', balanceTotal);
+            actualizarHistorial();
+            actualizarBalance();
+        });
+    
+        // Cargar historial al inicio
+        window.onload = () => {
+            actualizarHistorial();
+            actualizarBalance();
+        };
+    
+        // Evento de exportación a Excel
+        document.getElementById('exportar-excel').addEventListener('click', exportarAExcel);
+    </script>
+</body>
+</html>
