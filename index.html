@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Contable - Centro de Estudiantes</title>
+    <style>
+        /* Estilo general del cuerpo de la página */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://www.transparenttextures.com/patterns/diagonal-stripes.png');
+            background-color: #f3e6f0;
+            background-size: cover;
+            color: #4b0082;
+            transition: all 0.3s ease;
+        }
+
+        /* Estilo del encabezado */
+        header {
+            background-color: rgba(138, 43, 226, 0.8);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+            border-bottom: 2px solid #9370db;
+        }
+
+        header h1 {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Estilo del menú */
+        #menu {
+            background-color: rgba(147, 112, 219, 0.9);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 10px rgba(138, 43, 226, 0.5);
+        }
+
+        #menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        #menu a:hover {
+            color: #8a2be2;
+            text-decoration: underline;
+        }
+
+        /* Estilo de los formularios */
+        form {
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(147, 112, 219, 0.5);
+        }
+
+        form h2 {
+            text-align: center;
+            color: #8a2be2;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        form input[type="number"], form input[type="text"], form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #8a2be2;
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: rgba(238, 230, 253, 0.8);
+        }
+
+        form button {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #9370db;
+        }
+
+        /* Estilo de los elementos del historial */
+        #historial {
+            margin-top: 40px;
+        }
+
+        #historial h3 {
+            text-align: center;
+            font-size: 28px;
+            color: #8a2be2;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+        }
+
+        #historial ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #historial li {
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(238, 230, 253, 0.7);
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        #historial li:hover {
+            transform: scale(1.05);
+        }
+
+        /* Estilo de los botones y el balance */
+        #balance {
+            text-align: center;
+            margin-top: 40px;
+            font-weight: bold;
+            font-size: 26px;
+            color: #8a2be2;
+        }
+
+        #exportar-excel, #borrar-todo {
+            background-color: #8a2be2;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        #exportar-excel:hover, #borrar-todo:hover {
+            background-color: #9370db;
+        }
+
+        /* Estilo para el modal de confirmación */
+#confirmacion-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    justify-content: center;
+    align-items: center;
+}
+
+#confirmacion-modal.show {
+    display: flex; /* Mostrar el modal cuando tiene la clase .show */
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sombra suave para iluminación */
+    animation: fadeIn 0.3s ease-in-out; /* Animación para mostrar el modal */
+}
+
+/* Animación de aparición del modal */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content h3 {
+    color: #ff66b2; /* Rosa suave para el texto */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Estilo para los botones con líneas */
+button#confirmar-borrar, button#cancelar-borrar {
+    font-family: 'Poppins', sans-serif;
+    padding: 12px 20px;
+    background-color: transparent; /* Fondo transparente */
+    border: 2px solid #ff66b2; /* Borde rosa suave */
+    border-radius: 12px;
+    color: #ff66b2; /* Color del texto rosa */
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Efecto hover para el botón Confirmar */
+button#confirmar-borrar:hover {
+    background-color: #ff66b2; /* Rosa de fondo cuando se pasa el ratón */
+    color: white; /* Cambia el color del texto a blanco */
+    border-color: #ff3385; /* Cambio de borde a un rosa más intenso */
+    transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
+}
+
+/* Efecto hover para el botón Cancelar */
+button#cancelar-borrar:hover {
+    background-color: #ff66b2; /* Rosa de fondo cuando se pasa el ratón */
+    color: white; /* Cambia el color del texto a blanco */
+    border-color: #ff3385; /* Cambio de borde a un rosa más intenso */
+    transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
+}
+
+/* Efecto active (cuando el usuario hace clic) */
+button#confirmar-borrar:active, button#cancelar-borrar:active {
+    transform: scale(0.98); /* Efecto de contracción al hacer clic */
+}
+
+/* Estilo para los botones cuando están en estado de hover y active */
+button#confirmar-borrar:hover, button#cancelar-borrar:hover {
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+
+
+        /* Transiciones suaves */
+        body, #menu, form, #historial {
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sistema Contable - Centro de Estudiantes</h1>
+    </header>
+
+    <div id="menu">
+        <a href="#">Inicio</a>
+        <a href="#historial">Historial</a>
+    </div>
+
+    <main>
+        <h2>Formulario de Ingresos</h2>
+<form id="form-ingresos">
+    <label for="ingreso-descripcion">Tipo de ingreso:</label>
+    <select id="ingreso-descripcion">
+        <option value="" disabled selected style="color: #ff1493;">SELECCIONAR</option>
+        <option value="Torneo de Truco">Torneo de Truco</option>
+        <option value="Torneo de Ajedrez">Torneo de Ajedrez</option>
+        <option value="Torneo de E-sports">Torneo de E-sports</option>
+        <option value="Bingo">Bingo</option>
+        <option value="Personalizado">Personalizado</option> <!-- Opción para ingreso personalizado -->
+    </select>
+    <div id="ingreso-personalizado-container" style="display: none;">
+        <label for="ingreso-personalizado">Nombre del Ingreso Personalizado:</label>
+        <input type="text" id="ingreso-personalizado" placeholder="Escribe el nombre del ingreso">
+    </div>
+    <label for="ingreso-cantidad">Cantidad de entradas:</label>
+    <input type="number" id="ingreso-cantidad" placeholder="Cantidad">
+    <label for="ingreso-precio">Precio por entrada:</label>
+    <input type="number" id="ingreso-precio" placeholder="Precio">
+    <button type="button" id="guardar-ingreso">Guardar Ingreso</button>
+    <p id="error-ingreso" style="color: red; display: none;">Por favor, complete todos los campos correctamente.</p>
+</form>
+
+<h2>Formulario de Gastos</h2>
+<form id="form-gastos">
+    <label for="gasto-descripcion">Tipo de gasto:</label>
+    <select id="gasto-descripcion">
+        <option value="" disabled selected style="color: #ff1493;">SELECCIONAR</option>
+        <option value="Pintura">Pintura</option>
+        <option value="Espejos de Plástico Reflectante">Espejos de Plástico Reflectante</option>
+        <option value="Picaportes">Picaportes</option>
+        <option value="Desodorantes de Ambiente">Desodorantes de Ambiente</option>
+        <option value="Plantas">Plantas</option>
+        <option value="Personalizado">Personalizado</option> <!-- Opción para gasto personalizado -->
+    </select>
+    <div id="gasto-personalizado-container" style="display: none;">
+        <label for="gasto-personalizado">Nombre del Gasto Personalizado:</label>
+        <input type="text" id="gasto-personalizado" placeholder="Escribe el nombre del gasto">
+    </div>
+    <label for="gasto-cantidad">Cantidad de unidades:</label>
+    <input type="number" id="gasto-cantidad" placeholder="Cantidad">
+    <label for="gasto-precio">Precio por unidad:</label>
+    <input type="number" id="gasto-precio" placeholder="Precio">
+    <button type="button" id="guardar-gasto">Guardar Gasto</button>
+    <p id="error-gasto" style="color: red; display: none;">Por favor, complete todos los campos correctamente.</p>
+</form>
+
+    
+        <div id="historial">
+            <h3>Historial de Cálculos</h3>
+            <ul id="historial-lista"></ul>
+        </div>
+    
+        <div id="balance">
+            Balance Total: <span id="balance-total">0</span>
+        </div>
+        <button type="button" id="exportar-excel">Exportar a Excel</button>
+        <button type="button" id="borrar-todo">Borrar Todo</button>
+    </main>
+
+    <!-- Modal de confirmación -->
+<div id="confirmacion-modal">
+    <div class="modal-content">
+        <h3>¿Estás seguro de eliminar este movimiento?</h3>
+        <button id="confirmar-borrar">Confirmar</button>
+        <button id="cancelar-borrar">Cancelar</button>
+    </div>
+</div>
+
+
+    <!-- Librería para Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+   
+    <script>
+
+    // Función para mostrar los campos personalizados
+document.getElementById('ingreso-descripcion').addEventListener('change', () => {
+    const ingresoDescripcion = document.getElementById('ingreso-descripcion').value;
+    const ingresoPersonalizadoContainer = document.getElementById('ingreso-personalizado-container');
+    if (ingresoDescripcion === 'Personalizado') {
+        ingresoPersonalizadoContainer.style.display = 'block';
+    } else {
+        ingresoPersonalizadoContainer.style.display = 'none';
+    }
+});
+
+document.getElementById('gasto-descripcion').addEventListener('change', () => {
+    const gastoDescripcion = document.getElementById('gasto-descripcion').value;
+    const gastoPersonalizadoContainer = document.getElementById('gasto-personalizado-container');
+    if (gastoDescripcion === 'Personalizado') {
+        gastoPersonalizadoContainer.style.display = 'block';
+    } else {
+        gastoPersonalizadoContainer.style.display = 'none';
+    }
+});
+
+// Variables globales
+let historial = JSON.parse(localStorage.getItem('historial')) || [];
+let balanceTotal = parseFloat(localStorage.getItem('balanceTotal')) || 0;
+
+// Función para exportar historial a Excel
+const exportarAExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const wsHistorial = [];
+    wsHistorial.push(["Tipo", "Descripción", "Cantidad Total", "Precio Promedio", "Total", "Fecha"]);
+
+    // Agrupar por descripción
+    const groupedHistorial = groupByDescripcion(historial);
+
+    // Iterar sobre el historial agrupado
+    for (const descripcion in groupedHistorial) {
+        const items = groupedHistorial[descripcion];
+        const tipo = items[0].tipo; // Asumimos que todos los items del grupo son del mismo tipo (ingreso/gasto)
+        
+        // Sumar las cantidades y totales, y calcular el precio promedio
+        let totalCantidad = 0;
+        let totalPrecio = 0;
+        let total = 0;
+
+        items.forEach(item => {
+            totalCantidad += item.cantidad;
+            totalPrecio += item.precio * item.cantidad; // Precio total por cada ítem
+            total += item.total;
+        });
+
+        const precioPromedio = totalPrecio / totalCantidad;
+
+        wsHistorial.push([tipo === 'ingreso' ? 'Ingreso' : 'Gasto', descripcion, totalCantidad, precioPromedio.toFixed(2), total.toFixed(2), items[0].fecha]);
+    }
+
+    const ws = XLSX.utils.aoa_to_sheet(wsHistorial);
+    XLSX.utils.book_append_sheet(wb, ws, "Historial");
+    XLSX.writeFile(wb, "historial_contable.xlsx");
+};
+
+// Función para agrupar el historial por descripción
+const groupByDescripcion = (historial) => {
+    return historial.reduce((acc, item) => {
+        if (!acc[item.descripcion]) {
+            acc[item.descripcion] = [];
+        }
+        acc[item.descripcion].push(item);
+        return acc;
+    }, {});
+};
+
+// Función para guardar el ingreso
+document.getElementById('guardar-ingreso').addEventListener('click', () => {
+    let descripcion = document.getElementById('ingreso-descripcion').value;
+    if (descripcion === "Personalizado") {
+        descripcion = document.getElementById('ingreso-personalizado').value;
+    }
+    const cantidad = parseFloat(document.getElementById('ingreso-cantidad').value);
+    const precio = parseFloat(document.getElementById('ingreso-precio').value);
+    const total = cantidad * precio;
+    const fecha = new Date().toLocaleString();
+
+    if (descripcion === "" || isNaN(cantidad) || isNaN(precio) || cantidad <= 0 || precio <= 0) {
+        document.getElementById('error-ingreso').style.display = 'block';
+        return;
+    }
+
+    // Crear objeto de ingreso
+    const ingreso = { tipo: 'ingreso', descripcion, cantidad, precio, total, fecha };
+
+    // Agregar al historial
+    historial.push(ingreso);
+    localStorage.setItem('historial', JSON.stringify(historial));
+
+    // Actualizar balance
+    balanceTotal += total;
+    localStorage.setItem('balanceTotal', balanceTotal);
+
+    // Actualizar visualmente el historial y el balance
+    actualizarHistorial();
+    actualizarBalance();
+
+    // Limpiar los campos
+    document.getElementById('ingreso-descripcion').value = "";
+    document.getElementById('ingreso-cantidad').value = "";
+    document.getElementById('ingreso-precio').value = "";
+    document.getElementById('ingreso-personalizado').value = ""; // Limpiar campo personalizado
+    document.getElementById('error-ingreso').style.display = 'none';
+});
+
+// Función para guardar el gasto
+document.getElementById('guardar-gasto').addEventListener('click', () => {
+    let descripcion = document.getElementById('gasto-descripcion').value;
+    if (descripcion === "Personalizado") {
+        descripcion = document.getElementById('gasto-personalizado').value;
+    }
+    const cantidad = parseFloat(document.getElementById('gasto-cantidad').value);
+    const precio = parseFloat(document.getElementById('gasto-precio').value);
+    const total = cantidad * precio;
+    const fecha = new Date().toLocaleString();
+
+    if (descripcion === "" || isNaN(cantidad) || isNaN(precio) || cantidad <= 0 || precio <= 0) {
+        document.getElementById('error-gasto').style.display = 'block';
+        return;
+    }
+
+    // Crear objeto de gasto
+    const gasto = { tipo: 'gasto', descripcion, cantidad, precio, total, fecha };
+
+    // Agregar al historial
+    historial.push(gasto);
+    localStorage.setItem('historial', JSON.stringify(historial));
+
+    // Actualizar balance
+    balanceTotal -= total;
+    localStorage.setItem('balanceTotal', balanceTotal);
+
+    // Actualizar visualmente el historial y el balance
+    actualizarHistorial();
+    actualizarBalance();
+
+    // Limpiar los campos
+    document.getElementById('gasto-descripcion').value = "";
+    document.getElementById('gasto-cantidad').value = "";
+    document.getElementById('gasto-precio').value = "";
+    document.getElementById('gasto-personalizado').value = ""; // Limpiar campo personalizado
+    document.getElementById('error-gasto').style.display = 'none';
+});
+
+// Función para actualizar el historial visualmente
+const actualizarHistorial = () => {
+    const historialLista = document.getElementById('historial-lista');
+    historialLista.innerHTML = ''; // Limpiar lista antes de agregar los elementos
+    historial.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.tipo === 'ingreso' ? 'Ingreso' : 'Gasto'}: ${item.descripcion} - Cantidad: ${item.cantidad} - Precio: $${item.precio} - Total: $${item.total} - Fecha: ${item.fecha}`;
+
+        // Botón para borrar el item individual
+        const btnBorrar = document.createElement('button');
+        btnBorrar.textContent = 'Eliminar';
+        btnBorrar.style.marginLeft = '10px';
+        btnBorrar.addEventListener('click', () => mostrarModalConfirmacion('borrarElemento', index));
+
+        li.appendChild(btnBorrar);
+        historialLista.appendChild(li);
+    });
+};
+
+// Función para mostrar el modal de confirmación
+const mostrarModalConfirmacion = (accion, index) => {
+    document.getElementById('confirmacion-modal').classList.add('show');
+
+    // Acción de confirmación
+    document.getElementById('confirmar-borrar').onclick = () => {
+        if (accion === 'borrarElemento') {
+            borrarElemento(index);
+        } else if (accion === 'borrarTodo') {
+            borrarTodo();
+        }
+
+        // Cerrar el modal
+        document.getElementById('confirmacion-modal').classList.remove('show');
+    };
+
+    // Cancelar la acción de borrar
+    document.getElementById('cancelar-borrar').onclick = () => {
+        document.getElementById('confirmacion-modal').classList.remove('show');
+    };
+};
+
+// Función para borrar un elemento del historial
+const borrarElemento = (index) => {
+    const item = historial[index];
+    // Actualizar el balance dependiendo de si es ingreso o gasto
+    if (item.tipo === 'ingreso') {
+        balanceTotal -= item.total;
+    } else {
+        balanceTotal += item.total;
+    }
+
+    // Eliminar el item del historial
+    historial.splice(index, 1);
+
+    // Actualizar localStorage
+    localStorage.setItem('historial', JSON.stringify(historial));
+    localStorage.setItem('balanceTotal', balanceTotal);
+
+    // Actualizar visualmente el historial y el balance
+    actualizarHistorial();
+    actualizarBalance();
+};
+
+// Función para borrar todo el historial
+const borrarTodo = () => {
+    historial = [];
+    balanceTotal = 0;
+    localStorage.setItem('historial', JSON.stringify(historial));
+    localStorage.setItem('balanceTotal', balanceTotal);
+    actualizarHistorial();
+    actualizarBalance();
+};
+
+// Función para actualizar el balance visualmente
+const actualizarBalance = () => {
+    document.getElementById('balance-total').textContent = balanceTotal;
+};
+
+// Función para borrar todo el historial (vinculada al botón)
+document.getElementById('borrar-todo').addEventListener('click', () => {
+    mostrarModalConfirmacion('borrarTodo');
+});
+
+// Cargar historial al inicio
+window.onload = () => {
+    actualizarHistorial();
+    actualizarBalance();
+};
+
+// Evento de exportación a Excel
+document.getElementById('exportar-excel').addEventListener('click', exportarAExcel);
+</script>
+
+      
+</body>
+</html>
